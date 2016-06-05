@@ -1,5 +1,4 @@
 # Zhihu API
----
 
 一个非官方的 知乎 api  
 
@@ -21,9 +20,9 @@ todo
 
 ### 概述
 
-* GET [/questions/<question>](#get-question-info)
+* GET [`/questions/<question>`](#get-question-info)
 
-### GET /questions/<question>
+### GET `/questions/<question>`
 
 example:
 
