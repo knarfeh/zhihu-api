@@ -15,6 +15,6 @@ client = ZhihuClient()
 if os.path.isfile(TOKEN_FILE):
     client.load_token(TOKEN_FILE)
 else:
-    client.login_in_terminal()
+    client.login('zhihu2ebook@hotmail.com', 'Zhihu2Ebook')
     client.save_token(TOKEN_FILE)
 
