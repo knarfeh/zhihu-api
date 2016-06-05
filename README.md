@@ -7,27 +7,36 @@
 * [Game walkthrough - 游戏攻略](http://zhihu-oauth.readthedocs.io/zh_CN/latest/for-dev/oauth/game.html)
 
 ### 目录
-* [API 用法](#api-usage)
-* [说明](#features)
-* [安装](#installation)
-* [感谢](#contributing)
+* [API 用法](#api-用法)
+* [说明](#说明)
+* [安装](#安装)
+* [感谢](#感谢)
 * [License](#license)
 
 ## API 用法
 ### Demo
 
-todo
+TODO
 
 ### 概述
 
-* GET [`/questions/<question_id>`](#get-questionsquestion_id)
-
-### GET `/questions/<question_id>`
-
-example:
+* GET `/activity/<people_id>`
+* GET `/columns/<column_id>`
+* GET `/article/<int:article_id>`
+* GET `/collection/<int:collection_id>`
+* GET `/collection/<int:collection_id>/`
+* GET `/people/<people_id>`
+* GET `/topic/<int:topic_id>`
+* GET `/me`
+* GET `/questions/<int:question_id>`
+* GET `/questions/<int:question_id>/`
+* GET `/answers/<int:answer_id>`
+* GET `/question/<int:question_id>/answer/<int:answer_id>`
 
 
 ## 说明
+
+只支持 GET 方法
 
 ## 安装
 

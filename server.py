@@ -5,7 +5,7 @@ import logging
 import requests
 
 from logging import StreamHandler
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify
 from flask_cache import Cache
 from zhihu_oauth import ZhihuClient
 
@@ -33,7 +33,7 @@ def index_route():
 
 
 # Activity
-# @cache.cached(timeout=300)
+@cache.cached(timeout=300)
 @app.route('/activity/<people_id>', methods=['GET'])
 def activity_rout(people_id):
     u"""
@@ -55,7 +55,7 @@ def activity_rout(people_id):
 
 
 # Article
-# @cache.cached(timeout=300)
+@cache.cached(timeout=300)
 @app.route('/columns/<column_id>', methods=['GET'])
 def column_route(column_id):
     u"""
@@ -67,7 +67,7 @@ def column_route(column_id):
     return requests.get('https://zhuanlan.zhihu.com/api/columns/'+column_id).content
 
 
-# @cache.cached(timeout=300)
+@cache.cached(timeout=300)
 @app.route('/article/<int:article_id>', methods=['GET'])
 def article_route(article_id):
     u"""
@@ -79,7 +79,7 @@ def article_route(article_id):
     return jsonify(article_oauth.pure_data['data'])
 
 
-# @cache.cached(timeout=300)
+@cache.cached(timeout=300)
 @app.route('/collection/<int:collection_id>', methods=['GET'])
 def collection_info_route(collection_id):
     u"""
@@ -91,7 +91,7 @@ def collection_info_route(collection_id):
     return jsonify(collection_oauth.pure_data['data'])
 
 
-# @cache.cached(timeout=300)
+@cache.cached(timeout=300)
 @app.route('/collection/<int:collection_id>/', methods=['GET'])
 def collection_answer_route(collection_id):
     u"""
@@ -107,7 +107,7 @@ def collection_answer_route(collection_id):
 
 
 # People
-# @cache.cached(timeout=300)
+@cache.cached(timeout=300)
 @app.route('/people/<people_id>', methods=['GET'])
 def people_info_route(people_id):
     u"""
@@ -130,7 +130,7 @@ def topic_info_route(topic_id):
     return jsonify(topic_oauth.pure_data['data'])
 
 
-# @cache.cached(timeout=300)
+@cache.cached(timeout=300)
 @app.route('/me', methods=['GET'])
 def me_info():
     u"""
@@ -142,7 +142,7 @@ def me_info():
 
 
 # Questions
-# @cache.cached(timeout=300)
+@cache.cached(timeout=300)
 @app.route('/questions/<int:question_id>', methods=['GET'])
 def question_info_route(question_id):
     u"""
@@ -172,7 +172,7 @@ def question_answers_route(question_id):
 
 
 # Answers
-# @cache.cached(timeout=300)
+@cache.cached(timeout=300)
 @app.route('/answers/<int:answer_id>', methods=['GET'])
 def answer_route(answer_id):
     u"""
@@ -184,7 +184,7 @@ def answer_route(answer_id):
     return jsonify(answer_oauth.pure_data['data'])
 
 
-# @cache.cached(timeout=300)
+@cache.cached(timeout=300)
 @app.route('/question/<int:question_id>/answer/<int:answer_id>', methods=['GET'])
 def question_answer_route(question_id, answer_id):
     u"""
