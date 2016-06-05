@@ -2,15 +2,17 @@
 # -*- coding: utf-8 -*-
 
 import logging
+import requests
 
 from logging import StreamHandler
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_cache import Cache
 from zhihu_oauth import ZhihuClient
 
 client = ZhihuClient()
 client.load_token('token.pkl')
 
+me = client.me()
 
 cache = Cache(config={'CACHE_TYPE': 'simple'})
 
@@ -30,6 +32,80 @@ def index_route():
     })
 
 
+# Activity
+# @cache.cached(timeout=300)
+@app.route('/activity/<people_id>', methods=['GET'])
+def activity_rout(people_id):
+    u"""
+    目前最多10条动态
+    :param people_id:
+    :return:
+    """
+    people_oauth = client.people(people_id)
+    activities = people_oauth.activities
+    result = dict()
+    i = 0
+    for item in activities:
+        print item.target
+        result[str(i)] = item.target.pure_data
+        if i == 10:
+            break
+        i += 1
+    return jsonify(result)
+
+
+# Article
+# @cache.cached(timeout=300)
+@app.route('/columns/<column_id>', methods=['GET'])
+def column_route(column_id):
+    u"""
+
+    :param column_id:
+    :return:
+    """
+
+    return requests.get('https://zhuanlan.zhihu.com/api/columns/'+column_id).content
+
+
+# @cache.cached(timeout=300)
+@app.route('/article/<int:article_id>', methods=['GET'])
+def article_route(article_id):
+    u"""
+
+    :param article_id:
+    :return:
+    """
+    article_oauth = client.article(article_id)
+    return jsonify(article_oauth.pure_data['data'])
+
+
+# @cache.cached(timeout=300)
+@app.route('/collection/<int:collection_id>', methods=['GET'])
+def collection_info_route(collection_id):
+    u"""
+
+    :param collection_id:
+    :return:
+    """
+    collection_oauth = client.collection(collection_id)
+    return jsonify(collection_oauth.pure_data['data'])
+
+
+# @cache.cached(timeout=300)
+@app.route('/collection/<int:collection_id>/', methods=['GET'])
+def collection_answer_route(collection_id):
+    u"""
+
+    :param collection_id:
+    :return:
+    """
+    collection_oauth = client.collection(collection_id)
+    result = dict()
+    result['info'] = collection_oauth.pure_data['data']
+    result['data'] = [item.pure_data['cache'] for item in collection_oauth.answers]
+    return jsonify(result)
+
+
 # People
 # @cache.cached(timeout=300)
 @app.route('/people/<people_id>', methods=['GET'])
@@ -41,6 +117,17 @@ def people_info_route(people_id):
     """
     people_oauth = client.people(people_id)
     return jsonify(people_oauth.pure_data['data'])
+
+
+@app.route('/topic/<int:topic_id>', methods=['GET'])
+def topic_info_route(topic_id):
+    u"""
+
+    :param topic_id:
+    :return:
+    """
+    topic_oauth = client.topic(topic_id)
+    return jsonify(topic_oauth.pure_data['data'])
 
 
 # @cache.cached(timeout=300)
@@ -96,6 +183,18 @@ def answer_route(answer_id):
     answer_oauth = client.answer(answer_id)
     return jsonify(answer_oauth.pure_data['data'])
 
+
+# @cache.cached(timeout=300)
+@app.route('/question/<int:question_id>/answer/<int:answer_id>', methods=['GET'])
+def question_answer_route(question_id, answer_id):
+    u"""
+    需要登录状态
+    :param question_id:
+    :param answer_id:
+    :return:
+    """
+    answer_oauth = client.answer(answer_id)
+    return jsonify(answer_oauth.pure_data['data'])
 
 if __name__ == '__main__':
     app.run(debug=True)
