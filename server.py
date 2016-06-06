@@ -2,10 +2,9 @@
 # -*- coding: utf-8 -*-
 
 import logging
-import requests
 
 from logging import StreamHandler
-from flask import Flask, jsonify
+from flask import Flask, jsonify, redirect
 from flask_cache import Cache
 from zhihu_oauth import ZhihuClient
 
@@ -64,7 +63,7 @@ def column_route(column_id):
     :return:
     """
 
-    return requests.get('https://zhuanlan.zhihu.com/api/columns/'+column_id).content
+    return redirect('https://zhuanlan.zhihu.com/api/columns/'+column_id)
 
 
 @cache.cached(timeout=300)
