@@ -196,4 +196,4 @@ def question_answer_route(question_id, answer_id):
     return jsonify(answer_oauth.pure_data['data'])
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=8080)

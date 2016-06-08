@@ -58,3 +58,6 @@ docs/_build/
 
 test_zhihu_oauth.py
 token.pkl
+zhihuapiapp_nginx.conf
+config.ini
+zhihuapiapp_uwsgi.ini
