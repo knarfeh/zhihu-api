@@ -27,7 +27,16 @@ app.logger.addHandler(file_handler)
 def index_route():
     return jsonify({
         'author': 'knarfeh',
-        'author_url': 'knarfeh.com',
+        'author_url': 'http://www.knarfeh.com',
+        'people': 'http://zhihu-api.knarfeh.com/people/<people_id>',
+        'question': 'http://zhihu-api.knarfeh.com/questions/<int:question_id>',
+        'answer': 'http://zhihu-api.knarfeh.com/answers/<int:answer_id>',
+        'question_answer': 'http://zhihu-api.knarfeh.com/question/<int:question_id>/answer/<int:answer_id>',
+        'topic': 'http://zhihu-api.knarfeh.com/topic/<int:topic_id>',
+        'collection': 'http://zhihu-api.knarfeh.com/collection/<int:collection_id>',
+        'article': 'http://zhihu-api.knarfeh.com/article/<int:article_id>',
+        'columns': 'http://zhihu-api.knarfeh.com/columns/<column_id>',
+        'activity': 'http://zhihu-api.knarfeh.com/activity/<people_id>'
     })
 
 

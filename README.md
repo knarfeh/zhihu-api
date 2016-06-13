@@ -26,8 +26,8 @@
 * GET `/collection/<int:collection_id>`
 * GET `/collection/<int:collection_id>/`
 * GET `/people/<people_id>`
-* GET `/topic/<int:topic_id>`
 * GET `/me`
+* GET `/topic/<int:topic_id>`
 * GET `/questions/<int:question_id>`
 * GET `/questions/<int:question_id>/`
 * GET `/answers/<int:answer_id>`
