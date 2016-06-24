@@ -61,3 +61,4 @@ token.pkl
 zhihuapiapp_nginx.conf
 config.ini
 zhihuapiapp_uwsgi.ini
+login_zhihu.py
